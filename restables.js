@@ -140,7 +140,7 @@
             for (var target in self.settings.merge) {
                 self.structure.forEach(function (tmp, group) {
                     self.settings.merge[target].forEach(function (source) {
-                        self.structure[group][target][1] += self.structure[group][source][1];
+                        self.structure[group][target][1] += ' ' + self.structure[group][source][1];
                         self.structure[group].splice(source, 1);
                     });
                 });

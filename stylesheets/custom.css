@@ -1,0 +1,24 @@
+.main-content table {
+    display: table;
+    margin-bottom: 1em;
+}
+.main-content table.restables-clone {
+    display: none;
+}
+.main-content table.restables-clone td {
+    width: 50%;
+}
+.main-content table.restables-clone td:first-child {
+    font-weight: bold;
+}
+.main-content table.restables-clone tr:first-child td {
+    background: #f3f6fa;
+}
+@media (max-width: 991px) {
+    .main-content table.restables-origin {
+        display: none;
+    }
+    .main-content table.restables-clone {
+        display: table;
+    }
+}

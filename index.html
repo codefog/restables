@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>ResTables by codefog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">ResTables</h1>
+      <h2 class="project-tagline">jQuery plugin for the responsive tables</h2>
+      <a href="https://github.com/codefog/restables" class="btn">View on GitHub</a>
+      <a href="https://github.com/codefog/restables/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/codefog/restables/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="restables---jquery-plugin-for-responsive-tables" class="anchor" href="#restables---jquery-plugin-for-responsive-tables" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>resTables - jQuery plugin for responsive tables</h1>
+
+<p>The resTables jQuery plugin allows you to easily make your table responsive. It has been created based on the
+<a href="https://johnpolacek.github.io/stacktable.js/">stacktable.js</a> concept by John Polacek.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>You can download the plugin regular way or use the npm to install it:</p>
+
+<pre><code>npm install restables --save 
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The initialization of the plugin is simple:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-en">$</span>(<span class="pl-c1">document</span>).<span class="pl-en">ready</span>(<span class="pl-k">function</span> () {
+    <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>();
+});</pre></div>
+
+<p>Make sure to add the necessary CSS classes to display and hide both tables under certain window sizes:</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">table</span><span class="pl-e">.restables-clone</span> {
+    <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">none</span>;
+}
+
+<span class="pl-k">@media</span> (<span class="pl-c1">max-width</span>: <span class="pl-c1">991<span class="pl-k">px</span></span>) {
+    <span class="pl-ent">table</span><span class="pl-e">.restables-origin</span> {
+        <span class="pl-c1"><span class="pl-c1">display</span></span>: <span class="pl-c1">none</span>;
+    }
+
+    <span class="pl-ent">table</span><span class="pl-e">.restables-clone</span> {
+        <span class="pl-c1"><span class="pl-c1">display</span></span>: table;
+    }
+}</pre></div>
+
+<h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How it works</h2>
+
+<p>When the script is initialized it will create a sibling table but with 2-column layout only. Consider the following
+table structure:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">table</span>&gt;
+    &lt;<span class="pl-ent">thead</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">th</span>&gt;Header 1&lt;/<span class="pl-ent">th</span>&gt;
+            &lt;<span class="pl-ent">th</span>&gt;Header 2&lt;/<span class="pl-ent">th</span>&gt;
+            &lt;<span class="pl-ent">th</span>&gt;Header 3&lt;/<span class="pl-ent">th</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+    &lt;/<span class="pl-ent">thead</span>&gt;
+    &lt;<span class="pl-ent">tbody</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value A1&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value A2&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value A3&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value B1&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value B2&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value B3&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+    &lt;/<span class="pl-ent">tbody</span>&gt;
+&lt;/<span class="pl-ent">table</span>&gt;</pre></div>
+
+<p>Based on the above the plugin will create a new table with this structure: </p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">table</span>&gt;
+    &lt;<span class="pl-ent">tbody</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Header 1&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value A1&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Header 2&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value A2&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Header 3&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value A3&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+    &lt;/<span class="pl-ent">tbody</span>&gt;
+    &lt;<span class="pl-ent">tbody</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Header 1&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value B1&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Header 2&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value B2&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+        &lt;<span class="pl-ent">tr</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Header 3&lt;/<span class="pl-ent">td</span>&gt;
+            &lt;<span class="pl-ent">td</span>&gt;Value B3&lt;/<span class="pl-ent">td</span>&gt;
+        &lt;/<span class="pl-ent">tr</span>&gt;
+    &lt;/<span class="pl-ent">tbody</span>&gt;
+&lt;/<span class="pl-ent">table</span>&gt;</pre></div>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h2>
+
+<h3>
+<a id="merge" class="anchor" href="#merge" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>merge</h3>
+
+<p>Default value: <code>{}</code></p>
+
+<p>An object containing columns that will be merged with other columns. In the below example columns with indexes
+$2 and $3 will be merged with column $1 and column $6 will be merged with column $5.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    merge<span class="pl-k">:</span> {
+        <span class="pl-c1">1</span><span class="pl-k">:</span> [<span class="pl-c1">2</span>, <span class="pl-c1">3</span>], 
+        <span class="pl-c1">5</span><span class="pl-k">:</span> [<span class="pl-c1">6</span>]
+    }
+});</pre></div>
+
+<h3>
+<a id="move" class="anchor" href="#move" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>move</h3>
+
+<p>Default value: <code>{}</code></p>
+
+<p>An object containing columns that will be moved. In the below example column with index $1 will be placed at the top
+of the new table (index $0) and column $6 as the second row with index $1.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    move<span class="pl-k">:</span> {
+        <span class="pl-c1">1</span><span class="pl-k">:</span> <span class="pl-c1">0</span>,
+        <span class="pl-c1">6</span><span class="pl-k">:</span> <span class="pl-c1">1</span>
+    }
+});</pre></div>
+
+<h3>
+<a id="skip" class="anchor" href="#skip" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>skip</h3>
+
+<p>Default value: <code>[]</code></p>
+
+<p>An array of columns that should be skipped in the cloned table. In the below example columns with indexes $3 and $5
+will not be present in the new table. </p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    skip<span class="pl-k">:</span> [<span class="pl-c1">3</span>, <span class="pl-c1">5</span>]
+});</pre></div>
+
+<h3>
+<a id="span" class="anchor" href="#span" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>span</h3>
+
+<p>Default value: <code>[]</code></p>
+
+<p>An array of columns that should be spanned - the <code>colspan="2"</code> attribute will be added. In the below example
+columns with indexes $2 and $4 will have the <code>colspan="2"</code> attribute added and will appear as one cell.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    span<span class="pl-k">:</span> [<span class="pl-c1">2</span>, <span class="pl-c1">4</span>]
+});</pre></div>
+
+<h3>
+<a id="cssclassorigin" class="anchor" href="#cssclassorigin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>cssClassOrigin</h3>
+
+<p>Default value: <code>restables-origin</code></p>
+
+<p>The CSS class that will be added to origin table.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    cssClassOrigin<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>my-origin-table<span class="pl-pds">'</span></span>
+});</pre></div>
+
+<h3>
+<a id="cssclassclone" class="anchor" href="#cssclassclone" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>cssClassClone</h3>
+
+<p>Default value: <code>restables-clone</code></p>
+
+<p>The CSS class that will be added to cloned table. </p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    cssClassClone<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>my-cloned-table<span class="pl-pds">'</span></span>
+});</pre></div>
+
+<h3>
+<a id="uniqueattributes" class="anchor" href="#uniqueattributes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>uniqueAttributes</h3>
+
+<p>Default value: <code>['id', 'for']</code></p>
+
+<p>The list of attributes that should remain unique. Each cloned element containing those attributes will have them
+updated by adding the suffix (see <code>attributeSuffix</code> below).</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    uniqueAttributes<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>for<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>data-my-id<span class="pl-pds">'</span></span>]
+});</pre></div>
+
+<h3>
+<a id="attributesuffix" class="anchor" href="#attributesuffix" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>attributeSuffix</h3>
+
+<p>Default value: <code>'-restables-clone'</code></p>
+
+<p>The suffix that will be added to the unique attributes in the cloned elements.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    attributeSuffix<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>-my-suffix<span class="pl-pds">'</span></span>
+});</pre></div>
+
+<h3>
+<a id="clonecallback" class="anchor" href="#clonecallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>cloneCallback</h3>
+
+<p>Default value: <code>null</code></p>
+
+<p>The callback that is triggered just before the cloned table is inserted into DOM.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// Example</span>
+<span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-en">resTables</span>({
+    <span class="pl-en">cloneCallback</span><span class="pl-k">:</span> <span class="pl-k">function</span> (<span class="pl-smi">clone</span>) {
+        <span class="pl-smi">clone</span>.<span class="pl-c1">find</span>(<span class="pl-s"><span class="pl-pds">'</span>.checkbox<span class="pl-pds">'</span></span>).<span class="pl-en">addClass</span>(<span class="pl-s"><span class="pl-pds">'</span>checkbox-mobile<span class="pl-pds">'</span></span>);
+    }
+});</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/codefog/restables">ResTables</a> is maintained by <a href="https://github.com/codefog">codefog</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>

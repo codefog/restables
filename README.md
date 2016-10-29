@@ -4,6 +4,8 @@ resTables - jQuery plugin for responsive tables
 The resTables jQuery plugin allows you to easily make your table responsive. It has been created based on the
 [stacktable.js](https://johnpolacek.github.io/stacktable.js/) concept by John Polacek.
 
+View demo at http://codefog.github.io/restables/
+
 Installation
 ------------
 

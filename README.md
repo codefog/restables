@@ -233,6 +233,12 @@ Default value: ```null```
 
 The callback that is triggered just before the cloned table is inserted into DOM.
 
+### preserveCellClasses
+
+Default value: ```true```
+
+If true the CSS classes of cells will be preserved in the cloned table element.
+
 ```js
 // Example
 $('#my-table').resTables({

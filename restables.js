@@ -47,7 +47,7 @@
         // Result: columns with indexes 2 and 4 will have only 1 column (value) and colspan=2 attribute.
         span: [],
 
-        // The CSS classes that are added to the origin and cloned elements
+        // The CSS cssClass that are added to the origin and cloned elements.
         cssClassOrigin: 'restables-origin',
         cssClassClone: 'restables-clone',
 
@@ -63,7 +63,10 @@
 
         // The clone callback that is executed when cloning table element.
         // Usage example: function (clone) { clone.addClass('cloned-table') }
-        cloneCallback: null
+        cloneCallback: null,
+
+        // The CSS classes of cells will be preserved in the cloned table element.
+        preserveCellClasses: true
     };
 
     /**
@@ -114,7 +117,8 @@
 
             // Collect the table headers
             self.element.find('thead').find('th').each(function () {
-                self.headers.push($(this).html());
+                var th = $(this);
+                self.headers.push({'cssClass': th.attr('class') || '', 'html': th.html()});
             });
 
             self.structure = [];
@@ -124,7 +128,15 @@
                 var group = [];
 
                 $(this).find('td').each(function (index) {
-                    group.push([self.headers[index], $(this).html().trim()]);
+                    var td = $(this);
+
+                    group.push([
+                        self.headers[index],
+                        {
+                            'cssClass': td.attr('class') || '',
+                            'html': td.html().trim()
+                        }
+                    ]);
                 });
 
                 self.structure.push(group);
@@ -140,7 +152,7 @@
             for (var target in self.settings.merge) {
                 self.structure.forEach(function (tmp, group) {
                     self.settings.merge[target].forEach(function (source) {
-                        self.structure[group][target][1] += ' ' + self.structure[group][source][1];
+                        self.structure[group][target][1].html += ' ' + self.structure[group][source][1].html;
                         self.structure[group].splice(source, 1);
                     });
                 });
@@ -202,10 +214,20 @@
 
                 group.forEach(function (cells) {
                     var row = $('<tr/>');
-                    var cell = $('<td/>').html(cells[0]).appendTo(row);
+                    var cell = $('<td/>').html(cells[0].html).appendTo(row);
+
+                    // Preserve CSS classes
+                    if (self.settings.preserveCellClasses && cells[0].cssClass) {
+                        cell.attr('class', cells[0].cssClass);
+                    }
 
                     if (cells.hasOwnProperty(1)) {
-                        row.append($('<td/>').html(cells[1]));
+                        var cell2 = $('<td/>').html(cells[1].html).appendTo(row);
+
+                        // Preserve CSS classes
+                        if (self.settings.preserveCellClasses && cells[1].cssClass) {
+                            cell2.attr('class', cells[1].cssClass);
+                        }
                     } else {
                         cell.attr('colspan', 2);
                     }

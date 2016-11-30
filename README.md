@@ -241,3 +241,9 @@ $('#my-table').resTables({
     }
 });
 ```
+
+### preserveCellClasses
+
+Default value: ```true```
+
+If true the CSS classes of cells will be preserved in the cloned table element.
